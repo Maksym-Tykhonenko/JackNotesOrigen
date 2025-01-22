@@ -584,7 +584,7 @@ const App = () => {
                             //backgroundColor: 'rgba(0,0,0)',
                         }}>
                         <Animated.Image
-                            source={require('./src/assets/loaders/1.png')}
+                            source={require('./src/assets/loaders/Loader1.png')}
                             style={{
                                 //...props.style,
                                 opacity: appearingAnim,
@@ -594,7 +594,7 @@ const App = () => {
                             }}
                         />
                         <Animated.Image
-                            source={require('./src/assets/loaders/2.png')}
+                            source={require('./src/assets/loaders/Loader2.png')}
                             style={{
                                 //...props.style,
                                 opacity: appearingSecondAnim,

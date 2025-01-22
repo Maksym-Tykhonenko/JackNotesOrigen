@@ -1,14 +1,16 @@
-import { View } from "react-native"
+import { ImageBackground, View } from "react-native"
 import Home from "../components/Home"
 import Menu from "../components/Menu";
 
 const HomeScreen = () => {
     return (
         <View style={styles.container}>
-            <Home />
+            
+                <Home />
             <View style={styles.menu}>
                 <Menu />
             </View>
+            
         </View>
     )
 }; 
