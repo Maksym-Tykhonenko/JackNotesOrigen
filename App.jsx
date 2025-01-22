@@ -239,7 +239,7 @@ const App = () => {
         console.log('Івент push_open_browser OneSignal');
       } else {
         fetch(
-          `${INITIAL_URL}${URL_IDENTIFAIRE}?utretg=push_open_webview&jthrhg=${timestamp_user_id}`,
+          `${INITIAL_URL}${URL_IDENTIFAIRE}?utretg=push_open_webview&jthrhg=${timestamp_user_id}&yhugh=true`,
         );
         console.log('Івент push_open_webview OneSignal');
       }

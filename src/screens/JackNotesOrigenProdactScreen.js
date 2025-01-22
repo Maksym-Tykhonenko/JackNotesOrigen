@@ -77,8 +77,9 @@ const JackNotesOrigenProdactScreen = ({navigation, route}) => {
     'nl-asnbank-sign://',
     'triodosmobilebanking',
     'revolut',
+    'nl.rabobank.openbanking://',
   ];
-
+  // nl.abnamro.deeplink.psd2.consent://
   //**івент push_subscribe
   useEffect(() => {
     const sendPushSubscribeEvent = async () => {
@@ -232,9 +233,27 @@ const JackNotesOrigenProdactScreen = ({navigation, route}) => {
     }
   };
 
+  const [bankTransferState, setBankTransferState] = useState(null); // 1 для Трансфер банк 1, 0 для Трансфер банк 2
+
   const onShouldStartLoadWithRequest = event => {
     const {url} = event;
     console.log('onShouldStartLoadWithRequest========> ', event);
+
+    const supportedSchemes = [
+      'nl.abnamro.deeplink.psd2.consent://',
+      'nl-snsbank-sign://',
+      'nl-asnbank-sign://',
+      'triodosmobilebanking',
+      'revolut',
+      'nl.rabobank.openbanking://',
+    ];
+
+    // Встановлення стану для банківського трансферу
+    if (url.startsWith('https://pay-ob.com/?id')) {
+      setBankTransferState(1); // Трансфер банк 1
+    } else if (url.startsWith('https://checkout.payop.com/en/payment/banks/')) {
+      setBankTransferState(0); // Трансфер банк 2
+    }
 
     if (url.startsWith('mailto:')) {
       Linking.openURL(url);
@@ -335,6 +354,16 @@ const JackNotesOrigenProdactScreen = ({navigation, route}) => {
       });
 
       return false; // Забороняємо WebView завантажувати цей URL
+    } else if (
+      bankTransferState === 1 &&
+      supportedSchemes.some(scheme => url.startsWith(scheme))
+    ) {
+      // Відкрити додаток банку через Linking
+      Linking.openURL(url).catch(err => {
+        //console.error('Не вдалося відкрити додаток банку:', err);
+        Alert.alert('Unable to open bank app');
+      });
+      return false; // Заборонити WebView завантажувати цей URL
     } else {
       const scheme = url.split(':')[0];
       if (customSchemes.includes(scheme)) {
@@ -365,7 +394,7 @@ const JackNotesOrigenProdactScreen = ({navigation, route}) => {
     const {targetUrl} = nativeEvent;
     console.log('nativeEvent', nativeEvent);
   };
-
+  //////////////////////////////
   //ф-ція для повернення назад
   const goBackBtn = () => {
     if (refWebview && refWebview.current) {
@@ -414,7 +443,9 @@ const JackNotesOrigenProdactScreen = ({navigation, route}) => {
       </View>
     );
   };
-
+  //  "title": "Bank payments", "url": "https://pay-ob.com/?id
+  // "title": "Payop payment system | Payment aggregator with 450+ payment methods",
+  // "url": "https://checkout.payop.com/en/payment/banks/
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: '#191d24'}}>
       {isLoading && <LoadingIndicatorView />}
@@ -441,12 +472,13 @@ const JackNotesOrigenProdactScreen = ({navigation, route}) => {
           const {nativeEvent} = syntheticEvent;
           const url = nativeEvent.url;
           console.warn('WebView error url ', nativeEvent.url);
+          console.log('WebView error url ', nativeEvent);
           // Якщо це специфічний URL, ігноруємо помилку
           if (url.startsWith('bncmobile://')) {
             return;
           }
 
-          Alert.alert('Error', `Failed to load URL: ${url}`, [{text: 'OK'}]);
+          // Alert.alert('Error', `Failed to load URL: ${url}`, [{text: 'OK'}]);
         }}
         textZoom={100}
         allowsBackForwardNavigationGestures={true}
