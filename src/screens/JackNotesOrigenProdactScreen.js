@@ -234,9 +234,10 @@ const JackNotesOrigenProdactScreen = ({navigation, route}) => {
   };
 
   const [bankTransferState, setBankTransferState] = useState(null); // 1 для Трансфер банк 1, 0 для Трансфер банк 2
-
+  console.log('bankTransferState==================>', bankTransferState);
   const onShouldStartLoadWithRequest = event => {
     const {url} = event;
+    const {mainDocumentURL} = event;
     console.log('onShouldStartLoadWithRequest========> ', event);
 
     const supportedSchemes = [
@@ -251,8 +252,12 @@ const JackNotesOrigenProdactScreen = ({navigation, route}) => {
     // Встановлення стану для банківського трансферу
     if (url.startsWith('https://pay-ob.com/?id')) {
       setBankTransferState(1); // Трансфер банк 1
-    } else if (url.startsWith('https://checkout.payop.com/en/payment/banks/')) {
+      console.log('11111111111');
+    } else if (
+      mainDocumentURL.startsWith('https://checkout.payop.com/en/payment/banks/')
+    ) {
       setBankTransferState(0); // Трансфер банк 2
+      console.log('222222222222');
     }
 
     if (url.startsWith('mailto:')) {
@@ -358,6 +363,7 @@ const JackNotesOrigenProdactScreen = ({navigation, route}) => {
       bankTransferState === 1 &&
       supportedSchemes.some(scheme => url.startsWith(scheme))
     ) {
+      //console.log('Hellllllllooooowowowowowowowowowowowowowoop');
       // Відкрити додаток банку через Linking
       Linking.openURL(url).catch(err => {
         //console.error('Не вдалося відкрити додаток банку:', err);
