@@ -472,7 +472,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = JacksNotes/JacksNotes.entitlements;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 8;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = JacksNotes/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Jacks Notes";
@@ -503,7 +503,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = JacksNotes/JacksNotes.entitlements;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 8;
 				INFOPLIST_FILE = JacksNotes/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Jacks Notes";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
